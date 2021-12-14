@@ -5,7 +5,7 @@
 + http://localhost:8080/swagger-ui.html
 
 #### Security
-  + JWT + OAuth 2
+  + JWT
 #### Deploy Heroku
 
 
