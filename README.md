@@ -1,4 +1,4 @@
-## Projeto API - JAVA - [Crypto Market]
+## Projeto API - JAVA - [Marketplace virtual cartas/crypto simulação]
 
 ### 👉 FEATURES
 #### Docs - swagger2
@@ -21,11 +21,6 @@
 
 ### 👉 POPULAÇÃO DO BANCO
 + Ocorre com Flyway, então o banco é populado ao iniciar a aplicação.
-+ **OBS:** No HeidiSQL, bem como no application.properties, 
-as config de conexão são
-  + login : **root**
-  + senha : vazia
-  + porta : **3306**.
 
 ### 👉 BANCO E IDE
 + H2 + Flyway p/ migração
