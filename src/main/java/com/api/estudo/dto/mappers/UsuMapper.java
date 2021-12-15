@@ -3,6 +3,7 @@ package com.api.estudo.dto.mappers;
 
 import com.api.estudo.dto.request.RequestCarteiraDTO;
 import com.api.estudo.dto.request.RequestProdutoDTO;
+import com.api.estudo.dto.request.RequestPutUsuarioDTO;
 import com.api.estudo.dto.request.RequestUsuarioDTO;
 import com.api.estudo.dto.response.ResponseCarteiraDTO;
 import com.api.estudo.dto.response.ResponseProdutoDTO;
@@ -45,12 +46,17 @@ public abstract class UsuMapper {
     @Mapping(target = "carteira", source = "requestCarteiraDTOS")
     Usuario fromDTO(RequestUsuarioDTO dto);*/
 
-    @Mapping(target = "carteira", source = "requestCarteiraDTOS")
-    //@Mapping(target = "senha", expression = "java(encoder.encode(dto.getSenha()))")
-    @Mapping(target = "perfil", expression = "java(perfilRepository.findById(dto.getPerfilId()).get())")
-    @Mapping(target = "quantidadeAmigos", constant = "0")
     @Mapping(target = "saldo", constant = "0")
+    @Mapping(target = "quantidadeAmigos", constant = "0")
+    @Mapping(target = "carteira", source = "requestCarteiraDTOS")
+    @Mapping(target = "perfil", expression = "java(perfilRepository.findById(dto.getPerfilId()).get())")
     public abstract Usuario fromDTO(RequestUsuarioDTO dto);
+
+    @Mapping(target = "saldo", constant = "0")
+    @Mapping(target = "quantidadeAmigos", constant = "0")
+    //@Mapping(target = "perfil", expression = "java(perfilRepository.findById(dto.getPerfilId()).get())")
+    public abstract Usuario fromDTO(RequestPutUsuarioDTO dto);
+
 
     public abstract ResponseCarteiraDTO fromEntity(Carteira carteira);
 

@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,7 +22,10 @@ import java.util.Date;
 @AllArgsConstructor
 public class RequestTransacaoDTO {
 
+    @NotNull(message = "Deve haver um cartão")
     private Long origemId; //id do cartão do comprador
+
+    @NotNull(message = "Deve haver um produto válido para compra.")
     private Long produtoId;
 
     @JsonIgnore

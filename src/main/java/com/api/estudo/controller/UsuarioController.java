@@ -2,6 +2,7 @@ package com.api.estudo.controller;
 
 
 import com.api.estudo.dto.mappers.UsuMapper;
+import com.api.estudo.dto.request.RequestPutUsuarioDTO;
 import com.api.estudo.dto.request.RequestUsuarioDTO;
 import com.api.estudo.dto.response.ResponseCarteiraDTO;
 import com.api.estudo.dto.response.ResponseUsuarioDTO;
@@ -65,14 +66,13 @@ public class UsuarioController {
             usuarioService.deletarUsuario(id);
             return ResponseEntity.ok(usuarioDTO);
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.notFound().build();
         }
     }
 
     @PutMapping("/{id}")
     @ApiOperation(value = "Atualizar usuário", nickname = "atualizarUsuario", response = ResponseUsuarioDTO.class)
-    public ResponseEntity<ResponseUsuarioDTO> atualizarUsuario(@RequestBody RequestUsuarioDTO dto,
+    public ResponseEntity<ResponseUsuarioDTO> atualizarUsuario(@Valid @RequestBody RequestPutUsuarioDTO dto,
                                                                @PathVariable(name = "id")Long id) {
             ResponseUsuarioDTO response = mapper.fromEntity(usuarioService.atualizar(dto));
             return ResponseEntity.ok(response);
@@ -86,7 +86,6 @@ public class UsuarioController {
             ResponseUsuarioDTO usuarioDTO = mapper.fromEntity(usuarioService.buscarUsuarioPorId(id));
             return ResponseEntity.ok(usuarioDTO.getCarteiraDTO());
         }catch (Exception e){
-            e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }

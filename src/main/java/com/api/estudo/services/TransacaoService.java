@@ -4,6 +4,7 @@ package com.api.estudo.services;
 import com.api.estudo.entities.Carteira;
 import com.api.estudo.entities.Transacao;
 import com.api.estudo.entities.Usuario;
+import com.api.estudo.exceptions.EntityNotFoundException;
 import com.api.estudo.repositories.CarteiraRepository;
 import com.api.estudo.repositories.TransacaoRepository;
 import org.springframework.data.domain.Page;
@@ -36,12 +37,13 @@ public class TransacaoService {
         StringBuilder token = new StringBuilder();
         Carteira cartao = usuarioService.validarCartao(cartaoId);
 
+
         gerarRandomToken(token);
         mudarSaldo(cartao,
                 transacao.getDestino().getId(),
                 transacao.getProduto().getValor());
                 transacao.setToken(token.toString());
-        produtoService.mudarProdutoDeDono(transacao.getProduto(), transacao.getDestino());
+        produtoService.mudarProdutoDeDono(transacao.getProduto(), transacao.getOrigem());
         return transacaoRepository.save(transacao);
     }
 

@@ -21,9 +21,11 @@ public class RequestProdutoDTO {
     @Size(min = 4, max = 20)
     private String nome;
 
-    @NotBlank(message = "Valor não pode ser vazio")
+    @NotNull(message = "Valor não pode ser vazio")
+    @PositiveOrZero(message = "Não é aceito número negativo")
     private BigDecimal valor;
 
-    @NotBlank(message = "ID do dono do produto não pode ser vazio")
+    @NotNull(message = "ID do dono do produto não pode ser vazio")
+    @Positive
     private Long usuarioId;
 }

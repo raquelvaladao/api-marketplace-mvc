@@ -38,9 +38,11 @@ public class ProdutoService {
     public Page<Produto> listarTudo(Pageable pageable) {
         return produtoRepository.findAll(pageable);
     }
-    public void deletarProduto(Long id){
+
+    public Produto deletarProduto(Long id){
         Produto aSerDeletado = buscarProduto(id);
         produtoRepository.delete(aSerDeletado);
+        return aSerDeletado;
     }
 
     public void mudarProdutoDeDono(Produto produto, Usuario novoDono) {

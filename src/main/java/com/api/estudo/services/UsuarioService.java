@@ -1,5 +1,6 @@
 package com.api.estudo.services;
 
+import com.api.estudo.dto.request.RequestPutUsuarioDTO;
 import com.api.estudo.dto.request.RequestUsuarioDTO;
 import com.api.estudo.entities.Carteira;
 import com.api.estudo.entities.Usuario;
@@ -60,7 +61,7 @@ public class UsuarioService implements UserDetailsService {
         usuarioRepository.deleteById(id);
     }
 
-    public Usuario atualizar(RequestUsuarioDTO dto){
+    public Usuario atualizar(RequestPutUsuarioDTO dto){
         Usuario entity = buscarUsuarioPorEmail(dto.getEmail());
         entity.setNome(dto.getNome());
         entity.setSenha(dto.getSenha());
@@ -81,6 +82,7 @@ public class UsuarioService implements UserDetailsService {
         if(carteira.isEmpty() || carteira.get().getUsuario() == null){
             throw new EntityNotFoundException("Cartão ou usuário inválido");
         }
+        //verificar se o dono do cartão é a origem da transação.
         return carteira.get();
     }
 

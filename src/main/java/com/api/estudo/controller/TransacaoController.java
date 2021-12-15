@@ -17,7 +17,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-    @RestController
+import javax.validation.Valid;
+
+@RestController
     @Api(tags = "Transação")
     @RequestMapping("/v1/transacoes")
     public class TransacaoController {
@@ -30,12 +32,13 @@ import org.springframework.web.bind.annotation.*;
 
     @PostMapping
     @ApiOperation(value = "Realizar transação", nickname = "realizarTransacao", response = ResponseTransacaoDTO.class)
-    public ResponseEntity<ResponseTransacaoDTO> realizarTransacao(@RequestBody RequestTransacaoDTO dto) {
+    public ResponseEntity<ResponseTransacaoDTO> realizarTransacao(@Valid @RequestBody RequestTransacaoDTO dto) {
         try {
             Transacao transacao = mapper.fromDTO(dto);
             transacaoService.processarTransacao(transacao, dto.getOrigemId());
             return ResponseEntity.ok(mapper.fromEntity(transacao));
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }

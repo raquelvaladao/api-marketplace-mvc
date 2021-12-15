@@ -13,12 +13,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
-public class ValidationHandler extends ResponseEntityExceptionHandler {
+public class ValidationHandlerController extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
-
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) ->{
 

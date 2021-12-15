@@ -45,13 +45,6 @@ FOREIGN KEY (destino_id) REFERENCES tb_usuario(id),
 FOREIGN KEY (produto_id) REFERENCES tb_produto(id)
 );
 
-CREATE TABLE tb_item_transacao(
-id BIGINT AUTO_INCREMENT PRIMARY KEY,
-quantidade VARCHAR(255) NOT NULL,
-valor DECIMAL(19,2) NOT NULL,
-produto_id BIGINT NOT NULL,
-FOREIGN KEY (produto_id) REFERENCES tb_produto(id)
-);
 
 INSERT INTO `tb_perfil` (`id`, `nome`) VALUES (1, 'USUARIO');
 INSERT INTO `tb_perfil` (`id`, `nome`) VALUES (2, 'ADMIN');
