@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1/auth")
-@Api(value = "Autenticação")
+@Api(tags = "Autenticação")
 public class AutenticacaoController {
 
     private final AutenticacaoService autenticacaoService;
@@ -39,7 +39,6 @@ public class AutenticacaoController {
             ResponseTokenDTO token = autenticacaoService.autenticar(dto);
             return ResponseEntity.ok(token);
         } catch (AuthenticationException ae){
-            ae.printStackTrace();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }

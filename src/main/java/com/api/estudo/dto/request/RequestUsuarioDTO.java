@@ -15,16 +15,21 @@ import java.util.List;
 @AllArgsConstructor
 public class RequestUsuarioDTO {
 
-    @NotEmpty(message = "Nome errado")
+    @Size(min = 4, max = 20)
+    @NotEmpty(message = "Nome não pode ser vazio")
     private String nome;
 
-    @NotEmpty(message = "Email errado")
-    @Email
-    @Size(min=5, max = 20)
+    @Email(message = "Email inválido")
+    @NotEmpty(message = "Email não pode ser vazio")
+    @Size(min=5, max = 20, message = "Tamanho mínimo é 5 e máximo 20")
     private String email;
 
-
+    @NotEmpty(message = "Senha não pode ser vazia.")
+    @Size(min = 6, max = 40)
     private String senha;
+
+    @NotNull(message = "Usuário deve ter um perfil.")
     private Long perfilId;
+
     private List<RequestCarteiraDTO> requestCarteiraDTOS;
 }

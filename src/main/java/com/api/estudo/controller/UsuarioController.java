@@ -36,9 +36,13 @@ public class UsuarioController {
     @ApiOperation(value = "Cadastrar usuário", nickname = "registrarUsuario", response = ResponseUsuarioDTO.class)
     public ResponseEntity<ResponseUsuarioDTO> registrarUsuario(@Valid @RequestBody RequestUsuarioDTO dto) {
 
+        try{
             Usuario toSave = usuarioService.salvarUsuario(mapper.fromDTO(dto));
             ResponseUsuarioDTO response = mapper.fromEntity(toSave);
             return ResponseEntity.ok(response);
+        } catch (Exception e){
+            throw new InputInvalido(e.getMessage());
+        }
     }
 
     @GetMapping("/{id}")

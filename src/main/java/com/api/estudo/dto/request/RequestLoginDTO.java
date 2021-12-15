@@ -18,7 +18,7 @@ import java.util.List;
 public class RequestLoginDTO {
 
         @NotEmpty
-        @Email
+        @Email(message = "Email inválido")
         @Size(max = 20)
         private String email;
 

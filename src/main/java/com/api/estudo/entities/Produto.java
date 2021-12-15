@@ -31,9 +31,6 @@ public class Produto {
     @JsonIgnore
     private Usuario usuario;
 
-  /*  @OneToMany(mappedBy = "produto")
-    private List<Transacao> transacoes;*/
-
     public Produto(Long id) {
         this.id = id;
     }
