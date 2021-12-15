@@ -2,7 +2,7 @@
 
 ### 👉 FEATURES
 #### Docs - swagger2
-+ http://localhost:8080/swagger-ui.html
++ https://api-estudo-mvc.herokuapp.com/swagger-ui.html
 
 #### Security
   + JWT
@@ -28,6 +28,6 @@ as config de conexão são
   + porta : **3306**.
 
 ### 👉 BANCO E IDE
-+ MySQL + Flyway p/ migração
++ H2 + Flyway p/ migração
 + Intellij Community
 + Java 11 -  module: Coretto 11
