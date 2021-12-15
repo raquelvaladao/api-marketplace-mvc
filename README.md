@@ -1,4 +1,4 @@
-## Projeto API - JAVA - [Crypto Market]
+## Projeto API - JAVA - [Marketplace virtual cartas/crypto simulação]
 
 ### 👉 FEATURES
 #### Docs - swagger2
