@@ -4,13 +4,13 @@ package com.api.estudo.controller;
 import com.api.estudo.dto.mappers.ProdutoMapper;
 import com.api.estudo.dto.request.RequestProdutoDTO;
 import com.api.estudo.dto.response.ResponseProdutoDTO;
-import com.api.estudo.dto.response.ResponseUsuarioDTO;
 import com.api.estudo.entities.Produto;
 import com.api.estudo.exceptions.EntityNotFoundException;
-import com.api.estudo.exceptions.InputInvalido;
+import com.api.estudo.exceptions.InputInvalidoException;
 import com.api.estudo.services.ProdutoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +41,7 @@ public class ProdutoController {
             ResponseProdutoDTO response = mapper.fromEntity(toSave);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            throw new InputInvalido(e.getMessage());
+            throw new InputInvalidoException(e.getMessage());
         }
     }
 
@@ -56,15 +56,12 @@ public class ProdutoController {
         }
     }
 
-    @GetMapping("/all")
+    @GetMapping("/todos/{id}")
     @ApiOperation(value = "Listar produtos", nickname = "listarProdutos", response = ResponseProdutoDTO.class)
-    public ResponseEntity<List<ResponseProdutoDTO>> listarProdutos(@PageableDefault Pageable pageable) {
+    public ResponseEntity<Page<ResponseProdutoDTO>> listarProdutos(@PageableDefault Pageable pageable, @PathVariable(name = "id") Long id) {
         try {
-            List<ResponseProdutoDTO> response = produtoService
-                    .listarTudo(pageable)
-                    .stream()
-                    .map(mapper::fromEntity)
-                    .collect(Collectors.toList());
+            Page<ResponseProdutoDTO> response = produtoService
+                    .listarTudo(pageable, id).map(mapper::fromEntity);
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {

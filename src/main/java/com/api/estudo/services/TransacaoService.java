@@ -4,7 +4,6 @@ package com.api.estudo.services;
 import com.api.estudo.entities.Carteira;
 import com.api.estudo.entities.Transacao;
 import com.api.estudo.entities.Usuario;
-import com.api.estudo.exceptions.EntityNotFoundException;
 import com.api.estudo.repositories.CarteiraRepository;
 import com.api.estudo.repositories.TransacaoRepository;
 import org.springframework.data.domain.Page;
@@ -17,12 +16,12 @@ import java.util.Random;
 @Service
 public class TransacaoService {
 
+    public static final int ULTIMA_LETRA_ALFABETO = 26;
+    public static final int DIGITO_MAXIMO = 9;
+
     private final UsuarioService usuarioService;
-
     private final ProdutoService produtoService;
-
     private final TransacaoRepository transacaoRepository;
-
     private final CarteiraRepository carteiraRepository;
 
     public TransacaoService(UsuarioService usuarioService, TransacaoRepository transacaoRepository, ProdutoService produtoService, CarteiraRepository carteiraRepository) {
@@ -52,11 +51,11 @@ public class TransacaoService {
         for (int anInt : ints) {
             token.append(anInt);
             Random letra = new Random();
-            token.append((char)(letra.nextInt(26) + 'a'));
-            token.append(new Random().nextInt(9));
-            token.append((char)(letra.nextInt(26) + 'a'));
-            token.append(new Random().nextInt(9));
+            token.append((char)(letra.nextInt(ULTIMA_LETRA_ALFABETO) + 'a'));
+            token.append(new Random().nextInt(DIGITO_MAXIMO));
+            token.append((char)(letra.nextInt(ULTIMA_LETRA_ALFABETO) + 'a'));
             token.append("-");
+            token.append(new Random().nextInt(DIGITO_MAXIMO));
         }
     }
 

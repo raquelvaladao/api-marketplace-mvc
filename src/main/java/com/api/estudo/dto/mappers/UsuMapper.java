@@ -5,6 +5,7 @@ import com.api.estudo.dto.request.RequestCarteiraDTO;
 import com.api.estudo.dto.request.RequestProdutoDTO;
 import com.api.estudo.dto.request.RequestPutUsuarioDTO;
 import com.api.estudo.dto.request.RequestUsuarioDTO;
+import com.api.estudo.dto.response.ResponseAmigoDTO;
 import com.api.estudo.dto.response.ResponseCarteiraDTO;
 import com.api.estudo.dto.response.ResponseProdutoDTO;
 import com.api.estudo.dto.response.ResponseUsuarioDTO;
@@ -57,9 +58,7 @@ public abstract class UsuMapper {
     //@Mapping(target = "perfil", expression = "java(perfilRepository.findById(dto.getPerfilId()).get())")
     public abstract Usuario fromDTO(RequestPutUsuarioDTO dto);
 
-
-    public abstract ResponseCarteiraDTO fromEntity(Carteira carteira);
-
-    public abstract Carteira fromDTO(RequestCarteiraDTO dto);
+    @Mapping(target = "perfil", expression = "java(entity.getPerfil().getNome())")
+    public abstract ResponseAmigoDTO toResponseAmigo(Usuario entity);
 
 }

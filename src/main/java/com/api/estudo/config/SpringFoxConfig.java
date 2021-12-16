@@ -2,7 +2,6 @@ package com.api.estudo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -16,6 +15,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SpringFoxConfig  implements WebMvcConfigurer {
 
+    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String DEFAULT_INCLUDE_PATTERN = "/api/.*";
     @Bean
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -29,13 +30,14 @@ public class SpringFoxConfig  implements WebMvcConfigurer {
     private ApiInfo metaInfo() {
 
         return new ApiInfoBuilder()
-                .title("Crypto Market API REST")
-                .description("API REST de cadastro de produtos de crypto.")
+                .title("Compra/venda de cartas - API REST")
+                .description("API REST de cadastro de produtos/cartas")
                 .version("1.1.0")
                 .license("Apache 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
                 .build();
     }
+
 
 
 }

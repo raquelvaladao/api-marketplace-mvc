@@ -8,6 +8,7 @@ import com.api.estudo.exceptions.EntityNotFoundException;
 import com.api.estudo.repositories.ProdutoRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,8 +23,8 @@ public class ProdutoService {
     }
 
     public Produto salvarProduto(Produto entity) {
-        //VER SE PRECISO COLOCAR NA LIST<PRODUTOS> DO USUARIO??
-
+        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        entity.setUsuario(usuario);
         return produtoRepository.save(entity);
     }
 
@@ -35,9 +36,10 @@ public class ProdutoService {
         return optional.get();
     }
 
-    public Page<Produto> listarTudo(Pageable pageable) {
-        return produtoRepository.findAll(pageable);
+    public Page<Produto> listarTudo(Pageable pageable, Long id) {
+        return produtoRepository.findAllByUsuario_Id(id, pageable);
     }
+
 
     public Produto deletarProduto(Long id){
         Produto aSerDeletado = buscarProduto(id);

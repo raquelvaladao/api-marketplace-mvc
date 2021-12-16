@@ -24,11 +24,13 @@ import javax.validation.Valid;
     @RequestMapping("/v1/transacoes")
     public class TransacaoController {
 
-    @Autowired
-    TransacaoMapper mapper;
+    private final TransacaoMapper mapper;
+    private final TransacaoService transacaoService;
 
-    @Autowired
-    TransacaoService transacaoService;
+    public TransacaoController(TransacaoMapper mapper, TransacaoService transacaoService) {
+        this.mapper = mapper;
+        this.transacaoService = transacaoService;
+    }
 
     @PostMapping
     @ApiOperation(value = "Realizar transação", nickname = "realizarTransacao", response = ResponseTransacaoDTO.class)

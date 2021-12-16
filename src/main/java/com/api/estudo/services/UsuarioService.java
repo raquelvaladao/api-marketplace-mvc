@@ -5,8 +5,10 @@ import com.api.estudo.dto.request.RequestUsuarioDTO;
 import com.api.estudo.entities.Carteira;
 import com.api.estudo.entities.Usuario;
 import com.api.estudo.exceptions.EntityNotFoundException;
+import com.api.estudo.exceptions.InputInvalidoException;
 import com.api.estudo.repositories.CarteiraRepository;
 import com.api.estudo.repositories.UsuarioRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -41,28 +43,33 @@ public class UsuarioService implements UserDetailsService {
         return buscarUsuarioPorEmail(username);
     }
 
-    public Usuario buscarUsuarioPorId(Long idUsuario) {
+    public Usuario buscarUsuarioPorId(Long idUsuario)  throws EntityNotFoundException {
         Optional<Usuario> optional = usuarioRepository.findById(idUsuario);
-        if(optional.isEmpty()){
-            throw new EntityNotFoundException("Usuário não encontrado");
-        }
-        return optional.get();
+        return optional.orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
     }
 
     public Usuario salvarUsuario(Usuario usuario) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
         usuario.getCarteira().forEach(carteira -> carteira.setUsuario(usuario)); //se tiver ManyToOne usuario
         usuario.setSenha(encoder.encode(usuario.getSenha()));
+        verSeEmailEstaUsado(usuario);
         return usuarioRepository.save(usuario);
     }
+
+    private void verSeEmailEstaUsado(Usuario usuario) {
+        if(usuarioRepository.findByEmail(usuario.getEmail()).isPresent()){
+            throw new InputInvalidoException("Esse email está usado.");
+        }
+    }
+
     public void deletarUsuario(Long id) {
-//        usuario.getCarteira().forEach(carteira -> carteira.setUsuario(usuario)); se tiver ManyToOne usuario
         usuarioRepository.flush();
         usuarioRepository.deleteById(id);
     }
 
     public Usuario atualizar(RequestPutUsuarioDTO dto){
-        Usuario entity = buscarUsuarioPorEmail(dto.getEmail());
+        Usuario entity = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         entity.setNome(dto.getNome());
         entity.setSenha(dto.getSenha());
 
@@ -70,11 +77,16 @@ public class UsuarioService implements UserDetailsService {
         return entity;
     }
 
+
     public Usuario salvarSaldo(Usuario usuario){
         Usuario entity = buscarUsuarioPorId(usuario.getId());
         entity.setSaldo(usuario.getSaldo());
         usuarioRepository.save(entity);
         return entity;
+    }
+
+    public void atualizarAmigos(Usuario usuario){
+        usuarioRepository.save(usuario);
     }
 
     public Carteira validarCartao(Long cartaoId) {

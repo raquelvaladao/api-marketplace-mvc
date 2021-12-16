@@ -8,11 +8,15 @@ import com.api.estudo.dto.response.ResponseCarteiraDTO;
 import com.api.estudo.dto.response.ResponseUsuarioDTO;
 import com.api.estudo.entities.Usuario;
 import com.api.estudo.exceptions.EntityNotFoundException;
-import com.api.estudo.exceptions.InputInvalido;
+import com.api.estudo.exceptions.InputInvalidoException;
+import com.api.estudo.exceptions.UsuarioNaoPermitido;
 import com.api.estudo.services.UsuarioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +46,7 @@ public class UsuarioController {
             ResponseUsuarioDTO response = mapper.fromEntity(toSave);
             return ResponseEntity.ok(response);
         } catch (Exception e){
-            throw new InputInvalido(e.getMessage());
+            throw new InputInvalidoException(e.getMessage());
         }
     }
 
@@ -62,9 +66,13 @@ public class UsuarioController {
     @ApiOperation(value = "Deletar usuário", nickname = "deletarUsuario", response = ResponseUsuarioDTO.class)
     public ResponseEntity<ResponseUsuarioDTO> deletarUsuario(@PathVariable(name = "id")Long id) {
         try {
-            ResponseUsuarioDTO usuarioDTO = mapper.fromEntity(usuarioService.buscarUsuarioPorId(id));
-            usuarioService.deletarUsuario(id);
-            return ResponseEntity.ok(usuarioDTO);
+            Usuario usuarioLogado = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if(usuarioLogado.getPerfil().getNome().equals("ADMIN")) {
+                ResponseUsuarioDTO usuarioDTO = mapper.fromEntity(usuarioService.buscarUsuarioPorId(id));
+                usuarioService.deletarUsuario(id);
+                return ResponseEntity.ok(usuarioDTO);
+            } else
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
@@ -73,11 +81,18 @@ public class UsuarioController {
     @PutMapping("/{id}")
     @ApiOperation(value = "Atualizar usuário", nickname = "atualizarUsuario", response = ResponseUsuarioDTO.class)
     public ResponseEntity<ResponseUsuarioDTO> atualizarUsuario(@Valid @RequestBody RequestPutUsuarioDTO dto,
-                                                               @PathVariable(name = "id")Long id) {
-            ResponseUsuarioDTO response = mapper.fromEntity(usuarioService.atualizar(dto));
-            return ResponseEntity.ok(response);
+                                                               @PathVariable(name = "id") Long id) {
+            if (verSeUsuarioEstaHabilitado(id)) {
+                ResponseUsuarioDTO response = mapper.fromEntity(usuarioService.atualizar(dto));
+                return ResponseEntity.ok(response);
+            } else
+                throw new UsuarioNaoPermitido("Recurso inalcançável por esse usuário");
     }
 
+    private boolean verSeUsuarioEstaHabilitado(Long idUsuarioPath){
+        Usuario usuarioLogado = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return usuarioLogado.getPerfil().getNome().equals("ADMIN") || usuarioLogado.getId().equals(idUsuarioPath);
+    }
     @GetMapping("/cart/{id}")
     @ApiOperation(value = "Ver carteira do usuário", nickname = "verCarteira", response = ResponseCarteiraDTO.class)
     public ResponseEntity<List<ResponseCarteiraDTO>> verCarteira(@PathVariable(name = "id") Long id) {

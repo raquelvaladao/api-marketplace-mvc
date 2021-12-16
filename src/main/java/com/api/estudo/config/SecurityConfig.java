@@ -5,6 +5,7 @@ import com.api.estudo.services.AutenticacaoService;
 import com.api.estudo.services.UsuarioService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -60,6 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/v1/auth").permitAll()
                 .antMatchers(HttpMethod.POST, "/v1/usuario").permitAll()
+                .antMatchers(HttpMethod.DELETE,"/v1/usuario/**", "/v1/transacoes/**").hasAuthority("ADMIN")
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .anyRequest().authenticated()

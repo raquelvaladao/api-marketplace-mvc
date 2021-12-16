@@ -36,8 +36,8 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<ApiErrorDTO>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
-    @ExceptionHandler({InputInvalido.class})
-    public ResponseEntity<ApiErrorDTO> handleInputViolation(InputInvalido ex, WebRequest request){
+    @ExceptionHandler({InputInvalidoException.class})
+    public ResponseEntity<ApiErrorDTO> handleInputViolation(InputInvalidoException ex, WebRequest request){
         String error = "Esse input é inválido.";
         ApiErrorDTO apiError = new ApiErrorDTO(ex.getMessage(), error, HttpStatus.BAD_REQUEST);
 

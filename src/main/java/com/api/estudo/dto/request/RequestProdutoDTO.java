@@ -25,7 +25,4 @@ public class RequestProdutoDTO {
     @PositiveOrZero(message = "Não é aceito número negativo")
     private BigDecimal valor;
 
-    @NotNull(message = "ID do dono do produto não pode ser vazio")
-    @Positive
-    private Long usuarioId;
 }

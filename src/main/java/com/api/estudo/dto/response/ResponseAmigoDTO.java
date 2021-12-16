@@ -1,4 +1,5 @@
-package com.api.estudo.dto.request;
+package com.api.estudo.dto.response;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,13 +14,10 @@ import javax.validation.constraints.Size;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequestPutUsuarioDTO {
+public class ResponseAmigoDTO {
 
-    @Size(min = 4, max = 20)
-    @NotEmpty(message = "Nome não pode ser vazio")
     private String nome;
-
-    @NotEmpty(message = "Senha não pode ser vazia.")
-    @Size(min = 6, max = 40)
-    private String senha;
+    private String email;
+    private Integer quantidadeAmigos;
+    private String perfil;
 }

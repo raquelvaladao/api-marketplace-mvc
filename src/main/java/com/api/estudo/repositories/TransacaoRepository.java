@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface TransacaoRepository extends JpaRepository<Transacao, Long> {
 
     Page<Transacao> findByOrigem_NomeOrDestino_Nome(String login1, String login2, Pageable pageable);
+
 }

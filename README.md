@@ -1,6 +1,6 @@
-## Projeto API - JAVA - [Marketplace virtual cartas/crypto simulação]
+## Projeto API - JAVA - [Compra/venda de cartas desafio]
 
-### 👉 FEATURES
+###  FEATURES
 #### Docs - swagger2
 + https://api-estudo-mvc.herokuapp.com/swagger-ui.html
 
@@ -9,9 +9,9 @@
 #### Deploy Heroku
 
 
-### 👉 POSTMAN JSON PARA TESTES
+###  POSTMAN JSON PARA TESTES
   + [Ver arquivo neste repositório](API_Estudo.postman_collection.json)
-### 👉 DADOS DE LOGIN:
+###  DADOS DE LOGIN:
 + Para o admin:
   + Email: **admin@gft.com**
   + Senha: **123456**
@@ -19,10 +19,10 @@
   + Email: **scrum@gft.com**
   + Senha: **123456**
 
-### 👉 POPULAÇÃO DO BANCO
+###  POPULAÇÃO DO BANCO
 + Ocorre com Flyway, então o banco é populado ao iniciar a aplicação.
 
-### 👉 BANCO E IDE
+###  BANCO E IDE
 + H2 + Flyway p/ migração
 + Intellij Community
 + Java 11 -  module: Coretto 11

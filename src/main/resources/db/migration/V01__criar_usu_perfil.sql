@@ -49,7 +49,4 @@ FOREIGN KEY (produto_id) REFERENCES tb_produto(id)
 INSERT INTO `tb_perfil` (`id`, `nome`) VALUES (1, 'USUARIO');
 INSERT INTO `tb_perfil` (`id`, `nome`) VALUES (2, 'ADMIN');
 
---INSERT INTO `tb_usuario` (`id`, `email`, `senha`, `perfil_id`) VALUES (1, 'admin@gft.com', '$2a$10$UYsFPyLCVXzxPJLFKVMV0uMNCszuGWYeXDRhyaOc1xxVMQiHhETzi', 2);
---INSERT INTO `tb_usuario` (`id`, `email`, `senha`, `perfil_id`) VALUES (2, 'usu@gft.com', '$2a$10$UYsFPyLCVXzxPJLFKVMV0uMNCszuGWYeXDRhyaOc1xxVMQiHhETzi', 1);
---
 
