@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 import static com.api.estudo.enums.StatusAmizade.*;
@@ -58,8 +59,9 @@ public class AmizadeService {
                 mudarStatusAmizade(pedido);
             } else
                 amizadeRepository.delete(pedido);
+            return getListaDeAmigos(usuarioLogado.getId());
         }
-        return getListaDeAmigos(usuarioLogado.getId());
+        throw new InputInvalidoException("Um pedido não pode ser aplicado ao proprio user");
     }
 
         private void mudarQuantidadeAmigos(Usuario usuario, int quantidade) {
@@ -68,17 +70,19 @@ public class AmizadeService {
     }
 
 
-    private List<Usuario> getListaDeAmigos(Long usuarioId) {
+    public List<Usuario> getListaDeAmigos(Long usuarioId) {
         List<Usuario> amigos = new ArrayList<>();
         List<Amizade> amizades = amizadeRepository
-                .findByRemetente_IdOrDestinatario_IdAndStatus(usuarioId,usuarioId, ATIVO);
-        for(Amizade amizade : amizades){
-            if(amizade.getRemetente().getId().equals(usuarioId)){
-                amigos.add(amizade.getDestinatario());
-            } else{
-                amigos.add(amizade.getRemetente());
-            }
-        }
+                .findByRemetente_IdOrDestinatario_Id(usuarioId,usuarioId);
+
+        amizades.stream()
+                .filter(amizade -> amizade.getStatus().equals(ATIVO))
+                .forEach(amizade -> {
+                    if (amizade.getRemetente().getId().equals(usuarioId)) {
+                        amigos.add(amizade.getDestinatario());
+                    } else
+                        amigos.add(amizade.getRemetente());
+                });
         return amigos;
     }
 
@@ -112,8 +116,6 @@ public class AmizadeService {
         amizadeRepository.save(pedido);
     }
 
-
-
     private void verSeRemetenteEhIgualDestinatario(Usuario usuarioLogado, Usuario destinatario) {
         if(destinatario.getEmail().equals(usuarioLogado.getEmail())){
             throw new InputInvalidoException("Esse usuário não pode enviar pra si mesmo");
@@ -127,4 +129,15 @@ public class AmizadeService {
         }
     }
 
+    public List<Amizade> getPedidosPendentes(Long id) {
+        //List<Amizade> pedidosPendentes = new ArrayList<>();
+        List<Amizade> amizades = amizadeRepository
+                .findByDestinatario_IdAndStatus(id, PENDENTE);
+//        for(Amizade amizade : amizades){
+//            if(amizade.getDestinatario().getId().equals(id)) {
+//                pedidosPendentes.add(amizade);
+//            }
+//        }
+        return amizades;
+    }
 }

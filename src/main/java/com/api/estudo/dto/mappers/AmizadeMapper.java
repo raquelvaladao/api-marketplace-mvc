@@ -11,10 +11,8 @@ import static org.mapstruct.ReportingPolicy.*;
 
 @Mapper(unmappedSourcePolicy = WARN,
         unmappedTargetPolicy = WARN,
-        componentModel = "spring",
-        uses = UsuarioService.class)
+        componentModel = "spring")
 public abstract class AmizadeMapper {
-
 
     @Autowired
     UsuarioService usuarioService;

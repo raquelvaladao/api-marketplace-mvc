@@ -26,37 +26,20 @@ import static org.mapstruct.ReportingPolicy.IGNORE;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.WARN,
         unmappedSourcePolicy = ReportingPolicy.WARN,
-        componentModel = "spring",
-        uses = {PerfilRepository.class})
+        componentModel = "spring")
 public abstract class UsuMapper {
 
     @Autowired
     PerfilRepository perfilRepository;
-/*
-    @Autowired
-    BCryptPasswordEncoder encoder;*/
-
-    //UsuMapper INSTANCE = Mappers.getMapper(UsuMapper.class);
 
     @Mapping(target = "carteiraDTO", source = "carteira")
     public abstract ResponseUsuarioDTO fromEntity(Usuario entity);
-
-/*    @Mapping(target = "nome", source = "nome")
-    @Mapping(target = "email", source = "email")
-    @Mapping(target = "senha", source = "senha")
-    @Mapping(target = "carteira", source = "requestCarteiraDTOS")
-    Usuario fromDTO(RequestUsuarioDTO dto);*/
 
     @Mapping(target = "saldo", constant = "0")
     @Mapping(target = "quantidadeAmigos", constant = "0")
     @Mapping(target = "carteira", source = "requestCarteiraDTOS")
     @Mapping(target = "perfil", expression = "java(perfilRepository.findById(dto.getPerfilId()).get())")
     public abstract Usuario fromDTO(RequestUsuarioDTO dto);
-
-    @Mapping(target = "saldo", constant = "0")
-    @Mapping(target = "quantidadeAmigos", constant = "0")
-    //@Mapping(target = "perfil", expression = "java(perfilRepository.findById(dto.getPerfilId()).get())")
-    public abstract Usuario fromDTO(RequestPutUsuarioDTO dto);
 
     @Mapping(target = "perfil", expression = "java(entity.getPerfil().getNome())")
     public abstract ResponseAmigoDTO toResponseAmigo(Usuario entity);

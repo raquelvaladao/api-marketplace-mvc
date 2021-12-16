@@ -6,12 +6,14 @@ import com.api.estudo.dto.response.ResponseAmigoDTO;
 import com.api.estudo.dto.response.ResponsePedidoAmizadeDTO;
 import com.api.estudo.dto.response.ResponseUsuarioDTO;
 import com.api.estudo.entities.Amizade;
+import com.api.estudo.entities.Usuario;
 import com.api.estudo.exceptions.InputInvalidoException;
 import com.api.estudo.services.AmizadeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,7 +73,7 @@ public class AmizadeController {
     }
 
 
-    @PostMapping("/rejeitar/{id}")
+    @DeleteMapping("/rejeitar/{id}")
     @ApiOperation(value = "Rejeitar pedido", nickname = "rejeitarPedido", response = ResponseAmigoDTO.class)
     public ResponseEntity<List<ResponseAmigoDTO>> rejeitarPedido(@PathVariable(name = "id") Long remetenteId){
         try{
@@ -81,8 +83,6 @@ public class AmizadeController {
                     .map(usuarioMapper::toResponseAmigo)
                     .collect(Collectors.toList());
             return ResponseEntity.ok(amigosAtuais);
-        } catch (InputInvalidoException e) {
-            throw new InputInvalidoException(e.getMessage());
         } catch (Exception e){
             return ResponseEntity.badRequest().build();
         }
@@ -90,7 +90,7 @@ public class AmizadeController {
     }
 
     @DeleteMapping("/desfazer/{id}")
-    @ApiOperation(value = "Desfazer amizade", nickname = "desfazerAmizade", response = String.class)
+    @ApiOperation(value = "Desfazer amizade", nickname = "desfazerAmizade", response = ResponseAmigoDTO.class)
     public ResponseEntity<List<ResponseAmigoDTO>> desfazerAmizade(@PathVariable(name = "id") Long remetenteId){
         try{
             List<ResponseAmigoDTO> amigosAtuais = amizadeService
@@ -99,10 +99,42 @@ public class AmizadeController {
                     .map(usuarioMapper::toResponseAmigo)
                     .collect(Collectors.toList());
             return ResponseEntity.ok(amigosAtuais);
-        } catch (InputInvalidoException e) {
-            throw new InputInvalidoException(e.getMessage());
         } catch (Exception e){
             return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/todos")
+    @ApiOperation(value = "Ver amigos", nickname = "verAmigosUsuario", response = ResponseAmigoDTO.class)
+    public ResponseEntity<List<ResponseAmigoDTO>> verAmigosUsuario(){
+        try{
+            Usuario usuarioLogado = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            List<ResponseAmigoDTO> amigosAtuais = amizadeService
+                    .getListaDeAmigos(usuarioLogado.getId())
+                    .stream()
+                    .map(usuarioMapper::toResponseAmigo)
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(amigosAtuais);
+        } catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/pendentes")
+    @ApiOperation(value = "Ver amigos", nickname = "verPedidosPendentesUsuario", response = ResponsePedidoAmizadeDTO.class)
+    public ResponseEntity<List<ResponsePedidoAmizadeDTO>> verPedidosPendentesUsuario(){
+        try{
+            Usuario usuarioLogado = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            List<ResponsePedidoAmizadeDTO> amigosAtuais = amizadeService
+                    .getPedidosPendentes(usuarioLogado.getId())
+                    .stream()
+                    .map(mapper::fromEntity)
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.ok(amigosAtuais);
+        } catch (Exception e){
+            return ResponseEntity.notFound().build();
         }
     }
 

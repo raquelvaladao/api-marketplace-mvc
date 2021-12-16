@@ -3,7 +3,6 @@ package com.api.estudo.dto.mappers;
 import com.api.estudo.dto.request.RequestCarteiraDTO;
 import com.api.estudo.dto.response.ResponseCarteiraDTO;
 import com.api.estudo.entities.Carteira;
-import com.api.estudo.services.UsuarioService;
 import org.mapstruct.Mapper;
 
 import static org.mapstruct.ReportingPolicy.WARN;

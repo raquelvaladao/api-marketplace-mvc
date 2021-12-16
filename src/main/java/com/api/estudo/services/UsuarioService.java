@@ -8,6 +8,8 @@ import com.api.estudo.exceptions.EntityNotFoundException;
 import com.api.estudo.exceptions.InputInvalidoException;
 import com.api.estudo.repositories.CarteiraRepository;
 import com.api.estudo.repositories.UsuarioRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,6 +30,10 @@ public class UsuarioService implements UserDetailsService {
     public UsuarioService(UsuarioRepository usuarioRepository, CarteiraRepository carteiraRepository) {
         this.usuarioRepository = usuarioRepository;
         this.carteiraRepository = carteiraRepository;
+    }
+
+    public Page<Usuario> listarTodos(Pageable pageable){
+        return usuarioRepository.findAll(pageable);
     }
 
     public Usuario buscarUsuarioPorEmail(String email){
@@ -69,12 +75,15 @@ public class UsuarioService implements UserDetailsService {
     }
 
     public Usuario atualizar(RequestPutUsuarioDTO dto){
-        Usuario entity = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        entity.setNome(dto.getNome());
-        entity.setSenha(dto.getSenha());
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        Usuario principal = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Usuario usuarioLazySalvar = buscarUsuarioPorId(principal.getId());
 
-        usuarioRepository.save(entity);
-        return entity;
+        usuarioLazySalvar.setNome(dto.getNome());
+        usuarioLazySalvar.setSenha(encoder.encode(dto.getSenha()));
+
+        usuarioRepository.save(usuarioLazySalvar);
+        return usuarioLazySalvar;
     }
 
 

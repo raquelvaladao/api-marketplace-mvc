@@ -13,9 +13,12 @@ import java.util.List;
 @Repository
 public interface AmizadeRepository extends JpaRepository<Amizade, Long> {
     Amizade findByRemetente_IdAndDestinatario_Id(Long remetenteId, Long destinatarioId);
+
     Amizade findByDestinatario_IdAndRemetente_Id(Long destinatarioId, Long remetenteId);
 
-    List<Amizade> findByRemetente_IdOrDestinatario_IdAndStatus
-            (Long remetenteId, Long destinatarioId, StatusAmizade status);
+    List<Amizade> findByDestinatario_IdAndStatus(Long destinatarioId, StatusAmizade status);
+
+    List<Amizade> findByRemetente_IdOrDestinatario_Id
+            (Long remetenteId, Long destinatarioId);
 
 }

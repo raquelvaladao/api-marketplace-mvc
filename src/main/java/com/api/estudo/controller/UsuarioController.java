@@ -4,6 +4,7 @@ package com.api.estudo.controller;
 import com.api.estudo.dto.mappers.UsuMapper;
 import com.api.estudo.dto.request.RequestPutUsuarioDTO;
 import com.api.estudo.dto.request.RequestUsuarioDTO;
+import com.api.estudo.dto.response.ResponseAmigoDTO;
 import com.api.estudo.dto.response.ResponseCarteiraDTO;
 import com.api.estudo.dto.response.ResponseUsuarioDTO;
 import com.api.estudo.entities.Usuario;
@@ -13,6 +14,9 @@ import com.api.estudo.exceptions.UsuarioNaoPermitido;
 import com.api.estudo.services.UsuarioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -50,13 +54,24 @@ public class UsuarioController {
         }
     }
 
-    @GetMapping("/{id}")
-    @ApiOperation(value = "Consultar usuário", nickname = "consultarUsuario", response = ResponseUsuarioDTO.class)
-    public ResponseEntity<ResponseUsuarioDTO> consultarUsuario(@PathVariable(name = "id")Long id) {
-        try {
+    @GetMapping
+    @ApiOperation(value = "Ver todos os usuários", nickname = "verCarteira", response = ResponseAmigoDTO.class)
+    public ResponseEntity<Page<ResponseAmigoDTO>> listarTodos(@PageableDefault Pageable pageable) {
 
-            Usuario usuario = usuarioService.buscarUsuarioPorId(id);
-            return ResponseEntity.ok(mapper.fromEntity(usuario));
+        try {
+            Page<ResponseAmigoDTO> usuarios = usuarioService.listarTodos(pageable).map(mapper::toResponseAmigo);
+            return ResponseEntity.ok(usuarios);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation(value = "Consultar usuário", nickname = "consultarUsuario", response = ResponseAmigoDTO.class)
+    public ResponseEntity<ResponseAmigoDTO> consultarUsuario(@PathVariable(name = "id")Long id) {
+        try {
+                Usuario usuario = usuarioService.buscarUsuarioPorId(id);
+                return ResponseEntity.ok(mapper.toResponseAmigo(usuario));
         } catch (Exception e) {
             throw new EntityNotFoundException("Usuário não encontrado");
         }
@@ -78,30 +93,27 @@ public class UsuarioController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/editar")
     @ApiOperation(value = "Atualizar usuário", nickname = "atualizarUsuario", response = ResponseUsuarioDTO.class)
-    public ResponseEntity<ResponseUsuarioDTO> atualizarUsuario(@Valid @RequestBody RequestPutUsuarioDTO dto,
-                                                               @PathVariable(name = "id") Long id) {
-            if (verSeUsuarioEstaHabilitado(id)) {
+    public ResponseEntity<ResponseUsuarioDTO> atualizarUsuario(@Valid @RequestBody RequestPutUsuarioDTO dto) {
+
                 ResponseUsuarioDTO response = mapper.fromEntity(usuarioService.atualizar(dto));
                 return ResponseEntity.ok(response);
-            } else
-                throw new UsuarioNaoPermitido("Recurso inalcançável por esse usuário");
+
     }
 
-    private boolean verSeUsuarioEstaHabilitado(Long idUsuarioPath){
-        Usuario usuarioLogado = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return usuarioLogado.getPerfil().getNome().equals("ADMIN") || usuarioLogado.getId().equals(idUsuarioPath);
-    }
-    @GetMapping("/cart/{id}")
+    @GetMapping("/cart")
     @ApiOperation(value = "Ver carteira do usuário", nickname = "verCarteira", response = ResponseCarteiraDTO.class)
-    public ResponseEntity<List<ResponseCarteiraDTO>> verCarteira(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<List<ResponseCarteiraDTO>> verCarteira() {
 
         try {
-            ResponseUsuarioDTO usuarioDTO = mapper.fromEntity(usuarioService.buscarUsuarioPorId(id));
+            Usuario usuarioLogado = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            ResponseUsuarioDTO usuarioDTO = mapper.fromEntity(usuarioService.buscarUsuarioPorId(usuarioLogado.getId()));
             return ResponseEntity.ok(usuarioDTO.getCarteiraDTO());
         }catch (Exception e){
             return ResponseEntity.badRequest().build();
         }
     }
+
+
 }

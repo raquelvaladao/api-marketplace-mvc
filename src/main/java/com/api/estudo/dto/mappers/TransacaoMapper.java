@@ -14,8 +14,7 @@ import org.springframework.data.domain.Page;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.WARN,
         unmappedSourcePolicy = ReportingPolicy.WARN,
-        componentModel = "spring",
-        uses = UsuarioRepository.class)
+        componentModel = "spring")
 public abstract class TransacaoMapper {
 
     @Autowired
