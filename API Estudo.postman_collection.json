@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"luqcs@gft.com\",\r\n    \"nome\": \"Lucass David\",\r\n    \"senha\": \"123456\",\r\n    \"perfilId\": 1,\r\n    \"requestCarteiraDTOS\": [\r\n        {\r\n            \"codigo\": \"CART 1\",\r\n            \"orcamento\": 14300.00,\r\n            \"bandeira\": \"COINBASE\",\r\n            \"moeda\": \"BITCOIN\"\r\n        },\r\n        {\r\n            \"codigo\": \"CART 2\",\r\n            \"orcamento\": 89300.00,\r\n            \"bandeira\": \"TRUST\",\r\n            \"moeda\": \"ETHEREUM\"\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"email\": \"ab@email.com\",\r\n    \"nome\": \"Ab guy\",\r\n    \"senha\": \"123456\",\r\n    \"perfilId\": 1,\r\n    \"requestCarteiraDTOS\": [\r\n        {\r\n            \"codigo\": \"4234-234234-23423-234\",\r\n            \"orcamento\": 14300.00,\r\n            \"bandeira\": \"COINBASE\",\r\n            \"moeda\": \"BITCOIN\"\r\n        },\r\n        {\r\n            \"codigo\": \"12341-234234-2342-3432\",\r\n            \"orcamento\": 89300.00,\r\n            \"bandeira\": \"TRUST\",\r\n            \"moeda\": \"ETHEREUM\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -23,11 +23,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/usuario",
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/usuario",
+							"protocol": "https",
 							"host": [
-								"{{baseUrl}}"
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
 							],
 							"path": [
+								"v1",
 								"usuario"
 							]
 						}
@@ -39,12 +43,25 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"usu@gft.com\",\r\n    \"senha\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{baseUrl}}/auth",
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/auth",
+							"protocol": "https",
 							"host": [
-								"{{baseUrl}}"
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
 							],
 							"path": [
+								"v1",
 								"auth"
 							]
 						}
@@ -54,16 +71,30 @@
 				{
 					"name": "Buscar usuário",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NzIzMTE5fQ.iqyZmgbdp35_YZZ3YkA6W4zCZQDILVFUVwJudF7Eles",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/usuario/1",
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/usuario/4",
+							"protocol": "https",
 							"host": [
-								"{{baseUrl}}"
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
 							],
 							"path": [
+								"v1",
 								"usuario",
-								"1"
+								"4"
 							]
 						}
 					},
@@ -72,23 +103,28 @@
 				{
 					"name": "Deletar usuário",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NzI4NDY4fQ.kxOs_xfJ6C6krHlzmtsnTR7eQuvzvM85IiT5zmNUpDE",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
-						"url": null
-					},
-					"response": []
-				},
-				{
-					"name": "Editar usuário",
-					"request": {
-						"method": "PUT",
-						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/usuario/1",
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/usuario/1",
+							"protocol": "https",
 							"host": [
-								"{{baseUrl}}"
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
 							],
 							"path": [
+								"v1",
 								"usuario",
 								"1"
 							]
@@ -97,11 +133,74 @@
 					"response": []
 				},
 				{
+					"name": "Editar usuário",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NzI3NDE5fQ.9AjspEppGxIQl5Jii47f5IJNzSlsskjHH7S-c4Zb49A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"this is impostor\",\r\n    \"senha\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/usuario/editar",
+							"protocol": "https",
+							"host": [
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"v1",
+								"usuario",
+								"editar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Listar todos",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NzI4NDY4fQ.kxOs_xfJ6C6krHlzmtsnTR7eQuvzvM85IiT5zmNUpDE",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/usuario",
+							"protocol": "https",
+							"host": [
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"v1",
+								"usuario"
+							]
+						}
 					},
 					"response": []
 				}
@@ -113,14 +212,37 @@
 				{
 					"name": "Criar produto pra um user",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NzMxOTYyfQ.JFVCK9-5Di1xeB_Z3Z-TSLdsYvsHnDCG5xDoUI403RA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Carta do Usuario\",\r\n    \"valor\": \"3899.99\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{baseUrl}}/produtos",
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/produtos",
+							"protocol": "https",
 							"host": [
-								"{{baseUrl}}"
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
 							],
 							"path": [
+								"v1",
 								"produtos"
 							]
 						}
@@ -143,13 +265,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/produtos/1",
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/produtos/123",
+							"protocol": "https",
 							"host": [
-								"{{baseUrl}}"
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
 							],
 							"path": [
+								"v1",
 								"produtos",
-								"1"
+								"123"
 							]
 						}
 					},
@@ -183,11 +309,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/produtos/todos/1",
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/produtos/todos/1",
+							"protocol": "https",
 							"host": [
-								"{{baseUrl}}"
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
 							],
 							"path": [
+								"v1",
 								"produtos",
 								"todos",
 								"1"
@@ -199,17 +329,31 @@
 				{
 					"name": "Deletar produto",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NzMxODE5fQ.DXvLD715RFhUQbtatu0GvV4OlIHsl_peeFS83YA_NTk",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/produtos/del/3",
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/produtos/del/2",
+							"protocol": "https",
 							"host": [
-								"{{baseUrl}}"
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
 							],
 							"path": [
+								"v1",
 								"produtos",
 								"del",
-								"3"
+								"2"
 							]
 						}
 					},
@@ -236,11 +380,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/usuario/cart",
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/usuario/cart",
+							"protocol": "https",
 							"host": [
-								"{{baseUrl}}"
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
 							],
 							"path": [
+								"v1",
 								"usuario",
 								"cart"
 							]
@@ -256,11 +404,21 @@
 				{
 					"name": "Realizar transacao",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NjM1ODk5fQ.ep35gS5ec4OyROHVCI6-KWy8QP50lWkujIvVUJW3AoA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"origemId\": 3,\r\n    \"destinoId\": 1,\r\n    \"produtoId\": 1\r\n}",
+							"raw": "{\r\n    \"origemId\": 1,\r\n    \"produtoId\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -268,11 +426,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/transacoes",
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/transacoes",
+							"protocol": "https",
 							"host": [
-								"{{baseUrl}}"
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
 							],
 							"path": [
+								"v1",
 								"transacoes"
 							]
 						}
@@ -285,11 +447,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/transacoes?login=Administrador&size=3&page=1",
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/transacoes?login=Administrador&size=3&page=1",
+							"protocol": "https",
 							"host": [
-								"{{baseUrl}}"
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
 							],
 							"path": [
+								"v1",
 								"transacoes"
 							],
 							"query": [
@@ -323,7 +489,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NjU1NjYwfQ.NNgkpLwIT-o0fGz6p7JN8S1zEYAeB4drFDipOIVzS9c",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NzMxMTY1fQ.O1QLKX_e0TMGLFIN_S6L8WisX3Do244qSBirNVBqXww",
 									"type": "string"
 								}
 							]
@@ -332,7 +498,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"remetenteId\": 2,\r\n    \"destinatarioId\": 3\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -340,12 +506,18 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/amizade",
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/amizade/request/1",
+							"protocol": "https",
 							"host": [
-								"{{baseUrl}}"
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
 							],
 							"path": [
-								"amizade"
+								"v1",
+								"amizade",
+								"request",
+								"1"
 							]
 						}
 					},
@@ -359,7 +531,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NjcyNTIzfQ.u1rDalTGjbv1dHNErlO71Ics_RL35Fq907SYafM3gg0",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NzMxMjA5fQ._f_oyUNlC-I-9wY5XG0qU3BfVLPc7H1yrwnPvgh7J_s",
 									"type": "string"
 								}
 							]
@@ -376,11 +548,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/amizade/aceitar/2",
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/amizade/aceitar/2",
+							"protocol": "https",
 							"host": [
-								"{{baseUrl}}"
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
 							],
 							"path": [
+								"v1",
 								"amizade",
 								"aceitar",
 								"2"
@@ -397,7 +573,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NjcyNTIzfQ.u1rDalTGjbv1dHNErlO71Ics_RL35Fq907SYafM3gg0",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NzMxMjA5fQ._f_oyUNlC-I-9wY5XG0qU3BfVLPc7H1yrwnPvgh7J_s",
 									"type": "string"
 								}
 							]
@@ -414,14 +590,18 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/amizade/aceitar/2",
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/amizade/rejeitar/1",
+							"protocol": "https",
 							"host": [
-								"{{baseUrl}}"
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
 							],
 							"path": [
+								"v1",
 								"amizade",
-								"aceitar",
-								"2"
+								"rejeitar",
+								"1"
 							]
 						}
 					},
@@ -430,16 +610,30 @@
 				{
 					"name": "Listar amigos",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NzMxMjA5fQ._f_oyUNlC-I-9wY5XG0qU3BfVLPc7H1yrwnPvgh7J_s",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/{id}/amigos",
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/amizade/todos",
+							"protocol": "https",
 							"host": [
-								"{{baseUrl}}"
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
 							],
 							"path": [
-								"{id}",
-								"amigos"
+								"v1",
+								"amizade",
+								"todos"
 							]
 						}
 					},
@@ -451,11 +645,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/amigos/{id}",
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/amigos/{id}",
+							"protocol": "https",
 							"host": [
-								"{{baseUrl}}"
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
 							],
 							"path": [
+								"v1",
 								"amigos",
 								"{id}"
 							]
@@ -466,26 +664,63 @@
 				{
 					"name": "Ver pedidos ainda não aceitos por usu",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NzMxMjA5fQ._f_oyUNlC-I-9wY5XG0qU3BfVLPc7H1yrwnPvgh7J_s",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/amizade/pendentes",
+							"protocol": "https",
+							"host": [
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"v1",
+								"amizade",
+								"pendentes"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Desfazer amizade",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NzMxMjA5fQ._f_oyUNlC-I-9wY5XG0qU3BfVLPc7H1yrwnPvgh7J_s",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/amizade/{id}/deletar",
+							"raw": "https://api-estudo-mvc.herokuapp.com/v1/amizade/desfazer/2",
+							"protocol": "https",
 							"host": [
-								"{{baseUrl}}"
+								"api-estudo-mvc",
+								"herokuapp",
+								"com"
 							],
 							"path": [
+								"v1",
 								"amizade",
-								"{id}",
-								"deletar"
+								"desfazer",
+								"2"
 							]
 						}
 					},

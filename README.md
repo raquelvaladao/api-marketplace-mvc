@@ -1,12 +1,18 @@
 ## Projeto API - JAVA - [Compra/venda de produtos]
 
+###ENDPOINT BASE:
+```
+https://api-estudo-mvc.herokuapp.com/v1/
+```
 
-###  FEATURES
-#### Docs - swagger2
+###  Docs - swagger2
 + https://api-estudo-mvc.herokuapp.com/swagger-ui.html
+
+###  CIRCUNSTÂNCIAS
 #### Security
   + JWT
 #### Deploy Heroku
+#### Mapstruct
 
 
 ###  POSTMAN JSON PARA TESTES
@@ -20,7 +26,7 @@
   + Senha: **123456**
 
 ###  POPULAÇÃO DO BANCO
-+ Ocorre com Flyway, então o banco é populado ao iniciar a aplicação.
++ Ocorre com Flyway, então o banco é populado ao iniciar a aplicação com alguns usuários, carteiras e produtos.
 
 ###  BANCO E IDE
 + H2 + Flyway p/ migração
