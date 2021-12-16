@@ -1,5 +1,11 @@
 ## Projeto API - JAVA - [Compra/venda de cartas desafio]
 
+
+###  TODO():
++ Finalizar validações de role(admin)
++ Finalizar service de rejeitar pedido de amizade.
+
+
 ###  FEATURES
 #### Docs - swagger2
 + https://api-estudo-mvc.herokuapp.com/swagger-ui.html
