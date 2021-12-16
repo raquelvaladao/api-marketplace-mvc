@@ -9,10 +9,9 @@ https://api-estudo-mvc.herokuapp.com/v1/
 + https://api-estudo-mvc.herokuapp.com/swagger-ui.html
 
 ###  CIRCUNSTÂNCIAS
-#### Security
-  + JWT
-#### Deploy Heroku
-#### Mapstruct
+#### + Security (JWT)
+#### + Deploy Heroku
+#### + Mapstruct
 
 
 ###  POSTMAN JSON PARA TESTES
