@@ -25,7 +25,7 @@ https://api-estudo-mvc.herokuapp.com/v1/
   + Email: **admin@gft.com**
   + Senha: **123456**
 + Para o scrum:
-  + Email: **scrum@gft.com**
+  + Email: **usu@gft.com**
   + Senha: **123456**
 
 ###  POPULAÇÃO DO BANCO
