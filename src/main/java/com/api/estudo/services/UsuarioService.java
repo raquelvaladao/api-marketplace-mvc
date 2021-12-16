@@ -51,7 +51,7 @@ public class UsuarioService implements UserDetailsService {
     public Usuario salvarUsuario(Usuario usuario) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-        usuario.getCarteira().forEach(carteira -> carteira.setUsuario(usuario)); //se tiver ManyToOne usuario
+        usuario.getCarteira().forEach(carteira -> carteira.setUsuario(usuario));
         usuario.setSenha(encoder.encode(usuario.getSenha()));
         verSeEmailEstaUsado(usuario);
         return usuarioRepository.save(usuario);
@@ -94,7 +94,6 @@ public class UsuarioService implements UserDetailsService {
         if(carteira.isEmpty() || carteira.get().getUsuario() == null){
             throw new EntityNotFoundException("Cartão ou usuário inválido");
         }
-        //verificar se o dono do cartão é a origem da transação.
         return carteira.get();
     }
 

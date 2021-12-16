@@ -71,29 +71,15 @@ public class AmizadeController {
     @PostMapping("/rejeitar/{id}")
     @ApiOperation(value = "Rejeitar pedido", nickname = "rejeitarPedido", response = String.class)
     public ResponseEntity<String> rejeitarPedido(@PathVariable(name = "id") Long remetenteId){
-        try {
-            Amizade pedido = amizadeService.salvarPedido(remetenteId);
-
-            return ResponseEntity.ok().build();
-        } catch (InputInvalidoException e) {
-            throw new InputInvalidoException(e.getMessage());
-        } catch (Exception e){
-            return ResponseEntity.badRequest().build();
-        }
+       //TODO():
+        return ResponseEntity.ok("TODO");
     }
 
     @DeleteMapping("/desfazer/{id}")
     @ApiOperation(value = "Desfazer amizade", nickname = "desfazerAmizade", response = String.class)
     public ResponseEntity<String> desfazerAmizade(@PathVariable(name = "id") Long remetenteId){
-        try {
-            Amizade pedido = amizadeService.salvarPedido(remetenteId);
-
-            return ResponseEntity.ok().build();
-        } catch (InputInvalidoException e) {
-            throw new InputInvalidoException(e.getMessage());
-        } catch (Exception e){
-            return ResponseEntity.badRequest().build();
-        }
+        //TODO():
+        return ResponseEntity.ok("TODO");
     }
 
 

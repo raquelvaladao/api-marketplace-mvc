@@ -41,9 +41,6 @@ public class AmizadeService {
         return amizadeRepository.save(amizade);
     }
 
-    //so pode aceitar amizade se RECEBEU o pedido
-    //se eu tiver um pedido em que o principal() é o destinatario(recebeu o pedido), posso aceitar.
-
     public List<Usuario> aceitarAmizade(Long remetenteId){
         Usuario usuarioLogado = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Usuario remetente = usuarioService.buscarUsuarioPorId(remetenteId);
