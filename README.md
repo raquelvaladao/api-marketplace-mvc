@@ -1,19 +1,22 @@
 ## Projeto API - JAVA - [Compra/venda de produtos]
 
-###ENDPOINT BASE:
+###  ENDPOINT BASE:
 ```
 https://api-estudo-mvc.herokuapp.com/v1/
+```
+
+###  AUTHORIZATION TOKEN - FORMATO DE INSERÇÃO NO SWAGGER
+```
+ Bearer <token-value>
 ```
 
 ###  Docs - swagger2
 + https://api-estudo-mvc.herokuapp.com/swagger-ui.html
 
 ###  CIRCUNSTÂNCIAS
-#### Security
-  + JWT
-#### Deploy Heroku
-#### Mapstruct
-
++ Security (JWT)
++ Deploy Heroku
++ Mapstruct
 
 ###  POSTMAN JSON PARA TESTES
   + [Ver arquivo neste repositório](API Estudo.postman_collection.json)
@@ -22,7 +25,7 @@ https://api-estudo-mvc.herokuapp.com/v1/
   + Email: **admin@gft.com**
   + Senha: **123456**
 + Para o scrum:
-  + Email: **scrum@gft.com**
+  + Email: **usu@gft.com**
   + Senha: **123456**
 
 ###  POPULAÇÃO DO BANCO
