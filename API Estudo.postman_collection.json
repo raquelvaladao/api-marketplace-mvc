@@ -1,0 +1,479 @@
+{
+	"info": {
+		"_postman_id": "334a435c-4e5f-4dc3-bc4b-e062f9bc8f30",
+		"name": "API Estudo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Usuarioo",
+			"item": [
+				{
+					"name": "Registrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"luqcs@gft.com\",\r\n    \"nome\": \"Lucass David\",\r\n    \"senha\": \"123456\",\r\n    \"perfilId\": 1,\r\n    \"requestCarteiraDTOS\": [\r\n        {\r\n            \"codigo\": \"CART 1\",\r\n            \"orcamento\": 14300.00,\r\n            \"bandeira\": \"COINBASE\",\r\n            \"moeda\": \"BITCOIN\"\r\n        },\r\n        {\r\n            \"codigo\": \"CART 2\",\r\n            \"orcamento\": 89300.00,\r\n            \"bandeira\": \"TRUST\",\r\n            \"moeda\": \"ETHEREUM\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/usuario",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Autenticar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/auth",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar usuário",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/usuario/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar usuário",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "Editar usuário",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/usuario/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Produto",
+			"item": [
+				{
+					"name": "Criar produto pra um user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/produtos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar produto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NjM1ODk5fQ.ep35gS5ec4OyROHVCI6-KWy8QP50lWkujIvVUJW3AoA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/produtos/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"produtos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar produtos do usuário",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5Njc5MTgyfQ.AQHl_evSOSBAgTzFaO6VNmDKKCQi9vhqRfLj_DOGbiE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/produtos/todos/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"produtos",
+								"todos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar produto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/produtos/del/3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"produtos",
+								"del",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Carteira",
+			"item": [
+				{
+					"name": "Ver carteira de um usuário",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/usuario/cart/21",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"usuario",
+								"cart",
+								"21"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transacao",
+			"item": [
+				{
+					"name": "Realizar transacao",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"origemId\": 3,\r\n    \"destinoId\": 1,\r\n    \"produtoId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/transacoes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transacoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar transacoes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/transacoes?login=Administrador&size=3&page=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transacoes"
+							],
+							"query": [
+								{
+									"key": "login",
+									"value": "Administrador"
+								},
+								{
+									"key": "size",
+									"value": "3"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Amizade",
+			"item": [
+				{
+					"name": "Fazer pedido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NjU1NjYwfQ.NNgkpLwIT-o0fGz6p7JN8S1zEYAeB4drFDipOIVzS9c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"remetenteId\": 2,\r\n    \"destinatarioId\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/amizade",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"amizade"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Aceitar pedido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NjcyNTIzfQ.u1rDalTGjbv1dHNErlO71Ics_RL35Fq907SYafM3gg0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/amizade/aceitar/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"amizade",
+								"aceitar",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rejeitar pedido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NjcyNTIzfQ.u1rDalTGjbv1dHNErlO71Ics_RL35Fq907SYafM3gg0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/amizade/aceitar/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"amizade",
+								"aceitar",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar amigos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/{id}/amigos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{id}",
+								"amigos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ver amigo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/amigos/{id}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"amigos",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Desfazer amizade",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/amizade/{id}/deletar",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"amizade",
+								"{id}",
+								"deletar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

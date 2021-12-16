@@ -85,7 +85,7 @@ public class UsuarioService implements UserDetailsService {
         return entity;
     }
 
-    public void atualizarAmigos(Usuario usuario){
+    public void atualizarContagemAmigos(Usuario usuario){
         usuarioRepository.save(usuario);
     }
 

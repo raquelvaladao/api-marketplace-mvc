@@ -18,6 +18,10 @@ import static com.api.estudo.enums.StatusAmizade.*;
 @Service
 public class AmizadeService {
 
+    public static final int INCREMENTA = 1;
+    public static final int DECREMENTA = -1;
+
+
     private final UsuarioService usuarioService;
     private final AmizadeRepository amizadeRepository;
 
@@ -41,22 +45,28 @@ public class AmizadeService {
         return amizadeRepository.save(amizade);
     }
 
-    public List<Usuario> aceitarAmizade(Long remetenteId){
+       public List<Usuario> responderPedidoAmizade(Long remetenteId, boolean aceitarAmizade) {
         Usuario usuarioLogado = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Usuario remetente = usuarioService.buscarUsuarioPorId(remetenteId);
         Amizade pedido = amizadeRepository
                 .findByDestinatario_IdAndRemetente_Id(usuarioLogado.getId(), remetenteId);
 
-        if(pedido != null){
-            usuarioLogado.setQuantidadeAmigos(usuarioLogado.getQuantidadeAmigos() + 1);
-            remetente.setQuantidadeAmigos(remetente.getQuantidadeAmigos() + 1);
-            usuarioService.atualizarAmigos(remetente);
-            usuarioService.atualizarAmigos(usuarioLogado);
-            mudarStatusAmizade(pedido, ATIVO);
+        if(pedido != null && pedido.getStatus().equals(PENDENTE)){
+            if(aceitarAmizade) {
+                mudarQuantidadeAmigos(usuarioLogado, INCREMENTA);
+                mudarQuantidadeAmigos(remetente, INCREMENTA);
+                mudarStatusAmizade(pedido);
+            } else
+                amizadeRepository.delete(pedido);
         }
-
         return getListaDeAmigos(usuarioLogado.getId());
     }
+
+        private void mudarQuantidadeAmigos(Usuario usuario, int quantidade) {
+        usuario.setQuantidadeAmigos(usuario.getQuantidadeAmigos() + quantidade);
+        usuarioService.atualizarContagemAmigos(usuario);
+    }
+
 
     private List<Usuario> getListaDeAmigos(Long usuarioId) {
         List<Usuario> amigos = new ArrayList<>();
@@ -72,31 +82,41 @@ public class AmizadeService {
         return amigos;
     }
 
+
     public List<Usuario> desfazerAmizade(Long remetenteId){
         Usuario usuarioLogado = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Usuario remetente = usuarioService.buscarUsuarioPorId(remetenteId);
+        Amizade pedido = getAmizade(remetenteId, usuarioLogado);
+
+        if(pedido != null && pedido.getStatus().equals(ATIVO)){
+            mudarQuantidadeAmigos(usuarioLogado, DECREMENTA);
+            mudarQuantidadeAmigos(remetente, DECREMENTA);
+            amizadeRepository.delete(pedido);
+        }
+        return getListaDeAmigos(usuarioLogado.getId());
+    }
+
+    private Amizade getAmizade(Long remetenteId, Usuario usuarioLogado) {
         Amizade pedido = amizadeRepository
                 .findByDestinatario_IdAndRemetente_Id(usuarioLogado.getId(), remetenteId);
 
-        if(pedido != null){
-            usuarioLogado.setQuantidadeAmigos(usuarioLogado.getQuantidadeAmigos() + 1);
-            remetente.setQuantidadeAmigos(remetente.getQuantidadeAmigos() + 1);
-            usuarioService.atualizarAmigos(remetente);
-            usuarioService.atualizarAmigos(usuarioLogado);
-            mudarStatusAmizade(pedido, ATIVO);
+        if(pedido == null) {
+            pedido = amizadeRepository
+                    .findByDestinatario_IdAndRemetente_Id(remetenteId, usuarioLogado.getId());
         }
-        return new ArrayList<>();
+        return pedido;
     }
 
-
-    private void mudarStatusAmizade(Amizade pedido, StatusAmizade novoStatus) {
-        pedido.setStatus(novoStatus);
+    private void mudarStatusAmizade(Amizade pedido) {
+        pedido.setStatus(ATIVO);
         amizadeRepository.save(pedido);
     }
 
+
+
     private void verSeRemetenteEhIgualDestinatario(Usuario usuarioLogado, Usuario destinatario) {
         if(destinatario.getEmail().equals(usuarioLogado.getEmail())){
-            throw new InputInvalidoException("Esse usuário não pode enviar esse input");
+            throw new InputInvalidoException("Esse usuário não pode enviar pra si mesmo");
         }
     }
 

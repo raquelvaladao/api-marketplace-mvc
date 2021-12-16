@@ -24,6 +24,9 @@ import java.util.stream.Collectors;
 @Api(tags = "Amizade")
 public class AmizadeController {
 
+    private static final boolean ACEITAR = true;
+    private static final boolean REJEITAR = false;
+
     private final AmizadeMapper mapper;
     private final UsuMapper usuarioMapper;
     private final AmizadeService amizadeService;
@@ -54,7 +57,7 @@ public class AmizadeController {
     public ResponseEntity<List<ResponseAmigoDTO>> aceitarPedido(@PathVariable(name = "id") Long remetenteId){
         try {
             List<ResponseAmigoDTO> amigosAtuais = amizadeService
-                    .aceitarAmizade(remetenteId)
+                    .responderPedidoAmizade(remetenteId, ACEITAR)
                     .stream()
                     .map(usuarioMapper::toResponseAmigo)
                     .collect(Collectors.toList());
@@ -69,17 +72,38 @@ public class AmizadeController {
 
 
     @PostMapping("/rejeitar/{id}")
-    @ApiOperation(value = "Rejeitar pedido", nickname = "rejeitarPedido", response = String.class)
-    public ResponseEntity<String> rejeitarPedido(@PathVariable(name = "id") Long remetenteId){
-       //TODO():
-        return ResponseEntity.ok("TODO");
+    @ApiOperation(value = "Rejeitar pedido", nickname = "rejeitarPedido", response = ResponseAmigoDTO.class)
+    public ResponseEntity<List<ResponseAmigoDTO>> rejeitarPedido(@PathVariable(name = "id") Long remetenteId){
+        try{
+            List<ResponseAmigoDTO> amigosAtuais = amizadeService
+                    .responderPedidoAmizade(remetenteId, REJEITAR)
+                    .stream()
+                    .map(usuarioMapper::toResponseAmigo)
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(amigosAtuais);
+        } catch (InputInvalidoException e) {
+            throw new InputInvalidoException(e.getMessage());
+        } catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+
     }
 
     @DeleteMapping("/desfazer/{id}")
     @ApiOperation(value = "Desfazer amizade", nickname = "desfazerAmizade", response = String.class)
-    public ResponseEntity<String> desfazerAmizade(@PathVariable(name = "id") Long remetenteId){
-        //TODO():
-        return ResponseEntity.ok("TODO");
+    public ResponseEntity<List<ResponseAmigoDTO>> desfazerAmizade(@PathVariable(name = "id") Long remetenteId){
+        try{
+            List<ResponseAmigoDTO> amigosAtuais = amizadeService
+                    .desfazerAmizade(remetenteId)
+                    .stream()
+                    .map(usuarioMapper::toResponseAmigo)
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(amigosAtuais);
+        } catch (InputInvalidoException e) {
+            throw new InputInvalidoException(e.getMessage());
+        } catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 

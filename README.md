@@ -1,10 +1,9 @@
-## Projeto API - JAVA - [Compra/venda de cartas desafio]
+## Projeto API - JAVA - [Compra/venda de produtos]
 
 
 ###  TODO():
 + Finalizar validações de role(admin)
 + Finalizar service de rejeitar pedido de amizade.
-
 
 ###  FEATURES
 #### Docs - swagger2
@@ -16,7 +15,7 @@
 
 
 ###  POSTMAN JSON PARA TESTES
-  + [Ver arquivo neste repositório](API_Estudo.postman_collection.json)
+  + [Ver arquivo neste repositório](API Estudo.postman_collection.json)
 ###  DADOS DE LOGIN:
 + Para o admin:
   + Email: **admin@gft.com**
