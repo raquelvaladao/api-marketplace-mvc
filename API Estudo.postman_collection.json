@@ -223,17 +223,26 @@
 				{
 					"name": "Ver carteira de um usuário",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaXNzIjoiUHJvZ3JhbWFTdGFydGVyIiwiZXhwIjoxNjM5NjM1ODk5fQ.ep35gS5ec4OyROHVCI6-KWy8QP50lWkujIvVUJW3AoA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/usuario/cart/21",
+							"raw": "{{baseUrl}}/usuario/cart",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"usuario",
-								"cart",
-								"21"
+								"cart"
 							]
 						}
 					},
@@ -393,7 +402,7 @@
 								}
 							]
 						},
-						"method": "PUT",
+						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -451,6 +460,15 @@
 								"{id}"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ver pedidos ainda não aceitos por usu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
 					},
 					"response": []
 				},
