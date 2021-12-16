@@ -5,6 +5,11 @@
 https://api-estudo-mvc.herokuapp.com/v1/
 ```
 
+###  AUTHORIZATION TOKEN - FORMATO DE INSERÇÃO NO SWAGGER
+```
+ Bearer <token-value>
+```
+
 ###  Docs - swagger2
 + https://api-estudo-mvc.herokuapp.com/swagger-ui.html
 
@@ -12,7 +17,6 @@ https://api-estudo-mvc.herokuapp.com/v1/
 + Security (JWT)
 + Deploy Heroku
 + Mapstruct
-
 
 ###  POSTMAN JSON PARA TESTES
   + [Ver arquivo neste repositório](API Estudo.postman_collection.json)
